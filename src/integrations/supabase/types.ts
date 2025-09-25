@@ -14,16 +14,345 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      caregiver_notes: {
+        Row: {
+          caregiver_id: string
+          created_at: string
+          id: string
+          note: string
+          patient_id: string
+        }
+        Insert: {
+          caregiver_id: string
+          created_at?: string
+          id?: string
+          note: string
+          patient_id: string
+        }
+        Update: {
+          caregiver_id?: string
+          created_at?: string
+          id?: string
+          note?: string
+          patient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "caregiver_notes_caregiver_id_fkey"
+            columns: ["caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "caregiver_notes_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dosage_records: {
+        Row: {
+          created_at: string
+          device_id: string | null
+          environmental_trigger: string | null
+          id: string
+          is_emergency: boolean | null
+          is_scheduled: boolean | null
+          notes: string | null
+          patient_id: string
+          scheduled_at: string | null
+          taken_at: string
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string | null
+          environmental_trigger?: string | null
+          id?: string
+          is_emergency?: boolean | null
+          is_scheduled?: boolean | null
+          notes?: string | null
+          patient_id: string
+          scheduled_at?: string | null
+          taken_at?: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string | null
+          environmental_trigger?: string | null
+          id?: string
+          is_emergency?: boolean | null
+          is_scheduled?: boolean | null
+          notes?: string | null
+          patient_id?: string
+          scheduled_at?: string | null
+          taken_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dosage_records_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "inhaler_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dosage_records_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emergency_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          id: string
+          is_resolved: boolean | null
+          location_lat: number | null
+          location_lng: number | null
+          message: string | null
+          patient_id: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          id?: string
+          is_resolved?: boolean | null
+          location_lat?: number | null
+          location_lng?: number | null
+          message?: string | null
+          patient_id: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          is_resolved?: boolean | null
+          location_lat?: number | null
+          location_lng?: number | null
+          message?: string | null
+          patient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_alerts_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inhaler_devices: {
+        Row: {
+          battery_level: number | null
+          created_at: string
+          device_id: string | null
+          device_name: string
+          id: string
+          last_sync: string | null
+          patient_id: string
+          remaining_doses: number | null
+          total_doses: number | null
+        }
+        Insert: {
+          battery_level?: number | null
+          created_at?: string
+          device_id?: string | null
+          device_name: string
+          id?: string
+          last_sync?: string | null
+          patient_id: string
+          remaining_doses?: number | null
+          total_doses?: number | null
+        }
+        Update: {
+          battery_level?: number | null
+          created_at?: string
+          device_id?: string | null
+          device_name?: string
+          id?: string
+          last_sync?: string | null
+          patient_id?: string
+          remaining_doses?: number | null
+          total_doses?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inhaler_devices_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_caregiver_links: {
+        Row: {
+          caregiver_id: string
+          created_at: string
+          id: string
+          is_approved: boolean | null
+          patient_id: string
+        }
+        Insert: {
+          caregiver_id: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean | null
+          patient_id: string
+        }
+        Update: {
+          caregiver_id?: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean | null
+          patient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_caregiver_links_caregiver_id_fkey"
+            columns: ["caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_caregiver_links_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_medical_assignments: {
+        Row: {
+          assigned_at: string
+          id: string
+          medical_team_id: string
+          patient_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          id?: string
+          medical_team_id: string
+          patient_id: string
+        }
+        Update: {
+          assigned_at?: string
+          id?: string
+          medical_team_id?: string
+          patient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_medical_assignments_medical_team_id_fkey"
+            columns: ["medical_team_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_medical_assignments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          id_proof_number: string | null
+          id_proof_url: string | null
+          is_mobile_verified: boolean | null
+          mobile_number: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id?: string
+          id_proof_number?: string | null
+          id_proof_url?: string | null
+          is_mobile_verified?: boolean | null
+          mobile_number?: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          id_proof_number?: string | null
+          id_proof_url?: string | null
+          is_mobile_verified?: boolean | null
+          mobile_number?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reminder_schedules: {
+        Row: {
+          created_at: string
+          days_of_week: number[] | null
+          id: string
+          is_active: boolean | null
+          patient_id: string
+          time_of_day: string
+        }
+        Insert: {
+          created_at?: string
+          days_of_week?: number[] | null
+          id?: string
+          is_active?: boolean | null
+          patient_id: string
+          time_of_day: string
+        }
+        Update: {
+          created_at?: string
+          days_of_week?: number[] | null
+          id?: string
+          is_active?: boolean | null
+          patient_id?: string
+          time_of_day?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reminder_schedules_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_role: {
+        Args: { user_id: string }
+        Returns: Database["public"]["Enums"]["user_role"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "patient" | "caregiver" | "medical_team"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +479,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["patient", "caregiver", "medical_team"],
+    },
   },
 } as const
