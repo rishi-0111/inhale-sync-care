@@ -15,8 +15,17 @@ import {
   Settings,
   Phone,
   MapPin,
-  ChevronRight
+  ChevronRight,
+  Pill,
+  Users,
+  Plus,
+  Thermometer,
+  Droplets,
+  TrendingUp
 } from "lucide-react";
+import { EmergencySOS } from "@/components/EmergencySOS";
+import { DosageRecorder } from "@/components/DosageRecorder";
+import { PatientCaregiverLink } from "@/components/PatientCaregiverLink";
 
 interface InhalerDevice {
   id: string;
@@ -197,181 +206,179 @@ export default function PatientDashboard() {
           </Button>
         </div>
 
-        {/* Quick Stats */}
+        {/* Key Metrics Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="shadow-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Doses Remaining</CardTitle>
-              <Wind className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {primaryDevice?.remaining_doses || 0}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                of {primaryDevice?.total_doses || 200} total doses
-              </p>
-              <Progress 
-                value={primaryDevice ? (primaryDevice.remaining_doses / primaryDevice.total_doses) * 100 : 0} 
-                className="mt-2" 
-              />
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-card">
+          <Card className="shadow-card hover:shadow-medical transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Today's Usage</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <Activity className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
                 {recentDosages.filter(d => 
                   new Date(d.taken_at).toDateString() === new Date().toDateString()
-                ).length}
+                ).length}/4
               </div>
-              <p className="text-xs text-muted-foreground">
-                doses taken today
+              <Progress value={(recentDosages.filter(d => 
+                new Date(d.taken_at).toDateString() === new Date().toDateString()
+              ).length / 4) * 100} className="mt-2" />
+              <p className="text-xs text-muted-foreground mt-2">
+                +1 from yesterday
               </p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card hover:shadow-medical transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Battery Level</CardTitle>
-              <Battery className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Adherence Rate</CardTitle>
+              <TrendingUp className="h-4 w-4 text-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {primaryDevice?.battery_level || 0}%
-              </div>
-              <p className="text-xs text-muted-foreground">
-                device battery level
+              <div className="text-2xl font-bold text-accent">87%</div>
+              <Progress value={87} className="mt-2" />
+              <p className="text-xs text-muted-foreground mt-2">
+                Last 7 days average
               </p>
-              <Progress 
-                value={primaryDevice?.battery_level || 0} 
-                className="mt-2" 
-              />
             </CardContent>
           </Card>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card hover:shadow-medical transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Reminders</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Environment</CardTitle>
+              <div className="flex gap-1">
+                <Thermometer className="h-4 w-4 text-orange-500" />
+                <Droplets className="h-4 w-4 text-blue-500" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{reminders.length}</div>
-              <p className="text-xs text-muted-foreground">
-                scheduled reminders
+              <div className="text-2xl font-bold">22°C</div>
+              <div className="text-sm text-muted-foreground">65% Humidity</div>
+              <Badge variant="outline" className="mt-2 text-xs">
+                Optimal conditions
+              </Badge>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card hover:shadow-medical transition-all duration-300">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Next Dose</CardTitle>
+              <AlertTriangle className="h-4 w-4 text-destructive" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">2:30 PM</div>
+              <p className="text-xs text-muted-foreground mt-1">
+                In 45 minutes
               </p>
+              <Badge className="mt-2 bg-gradient-primary border-0">
+                Reminder Set
+              </Badge>
             </CardContent>
           </Card>
         </div>
 
-        {/* Emergency Button */}
-        <Card className="shadow-card border-red-200 bg-red-50">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-red-100 rounded-full">
-                  <Phone className="w-5 h-5 text-red-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-red-900">Emergency SOS</h3>
-                  <p className="text-sm text-red-700">
-                    Alert your caregivers and medical team instantly
-                  </p>
-                </div>
-              </div>
-              <Button 
-                variant="destructive" 
-                onClick={handleEmergencyAlert}
-                className="bg-red-600 hover:bg-red-700"
-              >
-                <AlertTriangle className="w-4 h-4 mr-2" />
-                Emergency Alert
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Emergency & Quick Actions */}
           <Card className="shadow-card">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Wind className="w-5 h-5 mr-2" />
-                Quick Actions
+              <CardTitle className="flex items-center gap-2 text-destructive">
+                <AlertTriangle className="w-5 h-5" />
+                Emergency
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <Button 
-                onClick={recordDosage} 
-                className="w-full justify-between"
-                disabled={!primaryDevice}
-              >
-                Record Inhaler Use
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-              <Button variant="outline" className="w-full justify-between">
-                View Usage History
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-              <Button variant="outline" className="w-full justify-between">
-                Manage Reminders
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+            <CardContent>
+              <EmergencySOS />
             </CardContent>
           </Card>
 
           <Card className="shadow-card">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Activity className="w-5 h-5 mr-2" />
+              <CardTitle className="flex items-center gap-2">
+                <Plus className="w-5 h-5" />
+                Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <DosageRecorder />
+              <Button variant="outline" className="w-full">
+                <Calendar className="w-4 h-4 mr-2" />
+                Book Appointment
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Recent Activity */}
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="w-5 h-5" />
                 Recent Activity
               </CardTitle>
             </CardHeader>
             <CardContent>
               {recentDosages.length > 0 ? (
-                <div className="space-y-3">
-                  {recentDosages.slice(0, 3).map((dosage) => (
-                    <div key={dosage.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
-                      <div className="flex items-center space-x-2">
-                        <div className={`w-2 h-2 rounded-full ${
-                          dosage.is_emergency ? 'bg-red-500' : 
-                          dosage.is_scheduled ? 'bg-green-500' : 'bg-blue-500'
+                <div className="space-y-4">
+                  {recentDosages.slice(0, 4).map((dosage) => (
+                    <div key={dosage.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-3 h-3 rounded-full ${
+                          dosage.is_emergency ? 'bg-destructive' : 'bg-accent'
                         }`} />
-                        <span className="text-sm">
-                          {dosage.is_emergency ? 'Emergency use' : 
-                           dosage.is_scheduled ? 'Scheduled dose' : 'Manual dose'}
-                        </span>
+                        <div>
+                          <p className="font-medium">
+                            {dosage.is_emergency ? 'Emergency use' : 'Inhaler use'}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {new Date(dosage.taken_at).toLocaleTimeString()}
+                          </p>
+                        </div>
                       </div>
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(dosage.taken_at).toLocaleTimeString()}
-                      </span>
                     </div>
                   ))}
                 </div>
               ) : (
                 <p className="text-muted-foreground text-center py-4">
-                  No recent activity recorded
+                  No recent activity
                 </p>
               )}
             </CardContent>
           </Card>
         </div>
 
-        {/* Adherence Chart Placeholder */}
-        <Card className="shadow-card">
-          <CardHeader>
-            <CardTitle>Weekly Adherence</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-48 bg-muted rounded-lg flex items-center justify-center">
-              <p className="text-muted-foreground">Adherence chart will be displayed here</p>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Medication Status & Caregiver Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Pill className="w-5 h-5" />
+                Current Medications
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
+                <div>
+                  <p className="font-medium">Albuterol Inhaler</p>
+                  <p className="text-sm text-muted-foreground">2 puffs as needed</p>
+                </div>
+                <Badge className="bg-accent/10 text-accent">
+                  {primaryDevice ? `${Math.round((primaryDevice.remaining_doses / primaryDevice.total_doses) * 100)}% remaining` : '0% remaining'}
+                </Badge>
+              </div>
+              
+              <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
+                <div>
+                  <p className="font-medium">Budesonide</p>
+                  <p className="text-sm text-muted-foreground">2 puffs twice daily</p>
+                </div>
+                <Badge variant="destructive">
+                  Low stock
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          <PatientCaregiverLink />
+        </div>
       </div>
     </div>
   );
