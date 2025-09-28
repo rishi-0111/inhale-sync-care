@@ -1,73 +1,109 @@
-# Welcome to your Lovable project
+# InhaleSync - Smart Inhaler Care
 
-## Project info
+A comprehensive web application for smart inhaler management with role-based access for Patients, Caregivers, and Medical Teams.
 
-**URL**: https://lovable.dev/projects/44e1d5de-0bfd-4b4b-bfa6-b6e5a71150e8
+## Features
 
-## How can I edit this code?
+### Patient Dashboard
+- Track inhaler dosage history and remaining doses
+- Receive medication reminders and notifications
+- Emergency SOS functionality
+- Weekly adherence reports and charts
+- Environmental alerts monitoring
 
-There are several ways of editing your application.
+### Caregiver Portal
+- Monitor linked patients (with patient approval)
+- Receive alerts for missed doses and low battery
+- Emergency notifications with patient location
+- View patient adherence summaries
+- Add care notes and observations
 
-**Use Lovable**
+### Medical Team Dashboard
+- Access assigned patient data and reports
+- Monitor dosage/adherence across multiple patients
+- Update prescriptions with automatic sync
+- View caregiver notes and patient history
+- Emergency alert management
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/44e1d5de-0bfd-4b4b-bfa6-b6e5a71150e8) and start prompting.
+## Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React + TypeScript + Vite
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **Backend**: Supabase (Database, Authentication, Storage)
+- **Authentication**: Email/Password with role-based access
+- **State Management**: React Query + Context
+- **Routing**: React Router DOM
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js 18+ and npm
+- Supabase account (for backend services)
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd inhalesync
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Environment Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env.local` file with your Supabase credentials:
 
-**Use GitHub Codespaces**
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Reusable UI components
+├── pages/              # Page components and routing
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+├── integrations/       # External service integrations
+└── assets/             # Static assets
+```
 
-This project is built with:
+## Authentication & Roles
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The application supports three user roles:
 
-## How can I deploy this project?
+- **Patient**: Individual inhaler users
+- **Caregiver**: Family members or care providers
+- **Medical Team**: Healthcare professionals
 
-Simply open [Lovable](https://lovable.dev/projects/44e1d5de-0bfd-4b4b-bfa6-b6e5a71150e8) and click on Share -> Publish.
+Each role has specific permissions and dashboard views.
 
-## Can I connect a custom domain to my Lovable project?
+## Database Schema
 
-Yes, you can!
+The application uses Supabase with the following main tables:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- `profiles` - User profiles with role information
+- `medications` - Medication tracking and history
+- `appointments` - Medical appointments
+- `emergency_alerts` - SOS and emergency notifications
+- `caregiver_notes` - Care observations and notes
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
