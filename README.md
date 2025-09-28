@@ -1,111 +1,84 @@
-# InhaleSync - Smart Inhaler Care
+ Smart Inhaler 
 
-A comprehensive web application for smart inhaler management with role-based access for Patients, Caregivers, and Medical Teams.
-
-## Features
-
-### Patient Dashboard
-- Track inhaler dosage history and remaining doses
-- Receive medication reminders and notifications
-- Emergency SOS functionality
-- Weekly adherence reports and charts
-- Environmental alerts monitoring
-
-### Caregiver Portal
-- Monitor linked patients (with patient approval)
-- Receive alerts for missed doses and low battery
-- Emergency notifications with patient location
-- View patient adherence summaries
-- Add care notes and observations
-
-### Medical Team Dashboard
-- Access assigned patient data and reports
-- Monitor dosage/adherence across multiple patients
-- Update prescriptions with automatic sync
-- View caregiver notes and patient history
-- Emergency alert management
-
-## Tech Stack
-
-- **Frontend**: React + TypeScript + Vite
-- **UI Components**: shadcn/ui + Tailwind CSS
-- **Backend**: Supabase (Database, Authentication, Storage)
-- **Authentication**: Email/Password with role-based access
-- **State Management**: React Query + Context
-- **Routing**: React Router DOM
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Supabase account (for backend services)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd inhalesync
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-### Environment Setup
-
-Create a `.env.local` file with your Supabase credentials:
-
-```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-## Project Structure
-
-```
-src/
-├── components/          # Reusable UI components
-├── pages/              # Page components and routing
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions
-├── integrations/       # External service integrations
-└── assets/             # Static assets
-```
-
-## Authentication & Roles
-
-The application supports three user roles:
-
-- **Patient**: Individual inhaler users
-- **Caregiver**: Family members or care providers
-- **Medical Team**: Healthcare professionals
-
-Each role has specific permissions and dashboard views.
-
-## Database Schema
-
-The application uses Supabase with the following main tables:
-
-- `profiles` - User profiles with role information
-- `medications` - Medication tracking and history
-- `appointments` - Medical appointments
-- `emergency_alerts` - SOS and emergency notifications
-- `caregiver_notes` - Care observations and notes
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+ Project Overview
+The Smart Inhaler Project aims to modernize traditional inhalers by integrating smart technology, IoT connectivity, and user monitoring. It ensures accurate medication delivery, better adherence, and improved patient safety for asthma, COPD, or other respiratory patients.
 
 ---
 
-## License
+ Key Features
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+ Device Features
+- Accurate medicine dosage delivery.
+- Rechargeable design with USB-C port for electronics.
+- Fluorescent outer coating for visibility in low light.
+- Sensors: Monitors inhalation patterns for proper usage.
+- Connectivity: Bluetooth/Wi-Fi to sync data with the mobile app.
+
+ Mobile Application Features
+- Usage tracking: Logs doses taken and remaining.
+- Reminders and alerts: Notifies patients when the next dose is due.
+- Analytics Dashboard: Displays adherence trends and usage history.
+- Doctor / Caregiver Monitoring: Allows remote monitoring of patients.
+- Air quality alerts: Warns users about environmental triggers (optional).
+
+ Advanced Features
+- AI-based monitoring for irregular or excessive usage.
+- Cloud integration for data storage and analytics.
+- Secure and encrypted patient data transfer.
+
+---
+
+ Technology Stack
+- Hardware: ESP32 / Arduino Nano, flow sensor, accelerometer, rechargeable battery.
+- Mobile App: React Native / Flutter (cross-platform).
+- Backend: Node.js / Python (Flask/Django).
+- Database: MongoDB / Firebase.
+- Connectivity: Bluetooth / Wi-Fi for device-app sync.
+- Cloud : For doctor/caregiver access to patient data.
+
+---
+
+ How It Works
+1. Device Setup: Pair inhaler with the mobile app via Bluetooth/Wi-Fi.
+2. Profile Setup: Patient enters personal details, prescription info, and emergency contacts.
+3. Daily Usage Monitoring: Each dose is tracked automatically by the app.
+4. Reminders & Alerts: App notifies patient when the next dose is due or if usage is irregular.
+5. Analytics & Reports: Adherence trends and dose history are shown to both patient and doctor.
+6. Fluorescent Coating Indicators: Dose markers or alerts glow under low light for easy visibility.
+
+---
+
+ Fluorescent Coating
+- Purpose: Makes inhaler visible in low-light environments and highlights dosage markers.
+- Material: Non-toxic, durable fluorescent coating safe for medical devices.
+- Benefits: Improves safety, adherence, and patient experience.
+
+---
+
+Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/smart-inhaler.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd smart-inhaler
+   ```
+3. Follow hardware setup instructions in `hardware/README.md` and mobile app setup in `app/README.md`.
+
+---
+
+Usage
+- Turn on the inhaler and pair with the mobile app.
+- Set up your profile and medication schedule.
+- Use the inhaler as prescribed; app tracks each dose automatically.
+- View analytics, reports, and alerts for better adherence.
+
+---
+
+ Contributing
+We welcome contributions! Please fork the repository, implement your improvements, and submit a pull request.
+
+---
+
+
